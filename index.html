@@ -27,8 +27,13 @@
         }
 
         const p = parseInt(document.getElementById("players").value);
+        const b = [];
+        for (let i = 1; i <= p; ++i) b.push(i);
+        const f = 1 + Math.floor(p * Math.random());
+        const t = `player ${f} goes first out of ${b.join(", ")}`;
+        document.getElementById("first").innerText = t;
         const n = p + (p < 3 ? 3 : 2);
-        const c = a.slice(0, n).join(", ");
+        const c = `colonies: ${a.slice(0, n).join(", ")}`;
         document.getElementById("colonies").innerText = c;
       };
     </script>
@@ -36,7 +41,8 @@
   <body>
     <p>How many players?</p>
     <input id="players" type="number" min="1" max="5" value="3"></input>
-    <button onclick="colonies()">get colonies</button>
+    <button onclick="colonies()">TM</button>
+    <p id="first"></p>
     <p id="colonies"></p>
   </body>
 </html>
