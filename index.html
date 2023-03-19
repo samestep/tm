@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>TM</title>
     <script>
+      const shuffle = (a) => {
+        for (let i = 0; i + 1 < a.length; ++i) {
+          const j = Math.floor(i + Math.random() * (a.length - i));
+          const x = a[i];
+          a[i] = a[j];
+          a[j] = x;
+        }
+      };
+
       const colonies = () => {
         const a = [
           "Europa",
@@ -19,19 +28,21 @@
           "Miranda",
           "Titan",
         ];
-        for (let i = 0; i + 1 < a.length; ++i) {
-          const j = Math.floor(i + Math.random() * (a.length - i));
-          const x = a[i];
-          a[i] = a[j];
-          a[j] = x;
-        }
+        shuffle(a);
 
+        const e = ["Tharsis", "Hellas", "Elysium"];
+        const i = Math.floor(e.length * Math.random());
+        const m = `map: ${e[i]}`;
+        document.getElementById("map").innerText = m;
         const p = parseInt(document.getElementById("players").value);
         const b = [];
         for (let i = 1; i <= p; ++i) b.push(i);
+        const j = b.join(",");
         const f = 1 + Math.floor(p * Math.random());
-        const t = `player ${f} goes first out of ${b.join(", ")}`;
-        document.getElementById("first").innerText = t;
+        shuffle(b);
+        const k = b.join(",");
+        const t = `players ${j} in order ${k} where ${f} goes first`;
+        document.getElementById("order").innerText = t;
         const n = p + (p < 3 ? 3 : 2);
         const c = `colonies: ${a.slice(0, n).join(", ")}`;
         document.getElementById("colonies").innerText = c;
@@ -42,7 +53,8 @@
     <p>How many players?</p>
     <input id="players" type="number" min="1" max="5" value="3"></input>
     <button onclick="colonies()">TM</button>
-    <p id="first"></p>
+    <p id="map"></p>
+    <p id="order"></p>
     <p id="colonies"></p>
   </body>
 </html>
